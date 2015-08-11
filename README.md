@@ -25,7 +25,7 @@ This is the Holmusk Frontend Web Developer challenge. The rules of the challenge
 You'll need to develop a frontend interface for a food logging webapp where a user can search for food information in our database and log their meal. The user should also be able to review their past logged meals.
 
 ### Bits and Pieces to take note of
-* Use `http://test.holmusk.com/food/search?q=food_search_query`, where the •food_search_query* parameter should be replaced by a food name, to search for food items
+* Use `http://test.holmusk.com/food/search?q=food_search_query`, where the *food_search_query* parameter should be replaced by a food name, to search for food items
 * Store meal information locally.
 * You will need to implement **autocomplete with a search view** [With a maximum of 10 results so that the interface does not look cluttered] so that users are able to easily enter food items they have had. 
 * With that said we wish you good luck and look forward to receiving your submission!
