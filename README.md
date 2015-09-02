@@ -10,6 +10,7 @@ Contact Number: 91825687
 ###The Challenge
 #### General
 * Responsive UI - Able to work on both PC and mobile devices
+
 #### Meal Logger
 * Autocomplete Search
   * Nutritional value of each food item is displayed
@@ -18,6 +19,7 @@ Contact Number: 91825687
 * Date Picker
   * User is able to log the meal by searching for the food item and select a date of entry
   * Food items logged on the same day will be group together
+
 #### Review Past Diet History
 * Nutritional Trend
   * User is able to review his/her past diet intake by observing the different nutritional input from the meals taken
