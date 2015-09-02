@@ -1,0 +1,138 @@
+<div class="container-fluid">
+	<!-- Chart Component -->
+	<h3><span class="label label-primary">My Nutrition Trends</span></h3>
+	<div class="row">
+		<div class="col-md-2">
+			<div class="btn-group">
+				<label class="btn btn-primary" ng-model="chartInterval" btn-radio="7" ng-change="updateChart()">Week</label>
+				<label class="btn btn-primary" ng-model="chartInterval" btn-radio="30" ng-change="updateChart()">Month</label>
+			</div>
+			<p></p>
+		</div>
+		<div class="col-md-3">			
+			<label>Nutritional Value</label><select class="form-control" ng-model="nutritionSelect" ng-options="nutrition.name for nutrition in nutritionList" ng-change="updateChart()" ></select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-5">
+			<canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-legend="true" chart-series="series">
+			</canvas>
+		</div>
+	</div> <!-- /.Chart Component -->
+
+	<!-- Listing of past food items -->
+	<h3><span class="label label-primary">My Past Diet History</span></h3>
+	<!-- Listing by date -->
+	<accordion>
+		<accordion-group heading="{{date.dateTime}}" ng-repeat="date in savedFoodItems track by $index">
+			<!-- Listing individual food item list -->
+			<ul class="list-unstyled">
+				<li ng-repeat="food in date.foodDetails track by $index">
+					<h4>{{food.name}}</h4>
+					<div class="row">
+						<!-- Portion -->
+						<div class="col-md-5">
+							<label>Portion:</label> {{food.portions.name}}
+							<p></p>
+							<button class="btn btn-danger" type="button" ng-click="removeSavedFoodItem($parent.$index, $index)">Remove</button>
+							<a ng-click="toggleSavedNutritionFacts($index)" href="" ng-init="savedNutritionFactsFlag[$index]=false"><small>Nutrition Facts</small></a>
+							<p></p>
+						</div> <!-- /.Portion -->
+						<!-- Nutritional Facts Table -->
+						<div class="col-md-7" ng-show="savedNutritionFactsFlag[$index]">
+							<table class="table table-condensed">
+								<thead>
+									<tr>
+										<th>Nutrition Facts</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tr>
+									<td>
+										<strong>Calories</strong>
+										<em ng-show="food.portions.nutrients.important.calories == null">None</em>
+										<span ng-show="food.portions.nutrients.important.calories != null"> {{food.portions.nutrients.important.calories.value}}{{food.portions.nutrients.important.calories.unit}}</span>
+									</td>
+									<td>
+										<strong>Protein</strong>
+										<em ng-show="food.portions.nutrients.important.protein == null">None</em>
+										<span ng-show="food.portions.nutrients.important.protein != null"> {{food.portions.nutrients.important.protein.value}}{{food.portions.nutrients.important.protein.unit}}</span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<strong>Sodium</strong>
+										<em ng-show="food.portions.nutrients.important.sodium == null">None</em>
+										<span ng-show="food.portions.nutrients.important.sodium != null"> {{food.portions.nutrients.important.sodium.value}}{{food.portions.nutrients.important.sodium.unit}}</span>
+									</td>
+									<td>
+										<strong>Cholesterol</strong>
+										<em ng-show="food.portions.nutrients.important.cholesterol == null">None</em>
+										<span ng-show="food.portions.nutrients.important.cholesterol != null"> {{food.portions.nutrients.important.cholesterol.value}}{{food.portions.nutrients.important.cholesterol.unit}}</span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<strong>Total Fats</strong>
+										<em ng-show="food.portions.nutrients.important.total_fats == null">None</em>
+										<span ng-show="food.portions.nutrients.important.total_fats != null"> {{food.portions.nutrients.important.total_fats.value}}{{food.portions.nutrients.important.total_fats.unit}}</span>
+										<ul>
+											<li>
+												Trans
+												<em ng-show="food.portions.nutrients.important.trans == null">None</em>
+												<span ng-show="food.portions.nutrients.important.trans != null"> {{food.portions.nutrients.important.trans.value}}{{food.portions.nutrients.important.trans.unit}}</span>
+											</li>
+											<li>
+												Polyunsaturated
+												<em ng-show="food.portions.nutrients.important.polyunsaturated == null">None</em>
+												<span ng-show="food.portions.nutrients.important.polyunsaturated != null"> {{food.portions.nutrients.important.polyunsaturated.value}}{{food.portions.nutrients.important.polyunsaturated.unit}}</span>
+											</li>
+											<li>
+												Monounsaturated
+												<em ng-show="food.portions.nutrients.important.monounsaturated == null">None</em>
+												<span ng-show="food.portions.nutrients.important.monounsaturated != null"> {{food.portions.nutrients.important.monounsaturated.value}}{{food.portions.nutrients.important.monounsaturated.unit}}</span>
+											</li>
+											<li>
+												Saturated
+												<em ng-show="food.portions.nutrients.important.saturated == null">None</em>
+												<span ng-show="food.portions.nutrients.important.saturated != null"> {{food.portions.nutrients.important.saturated.value}}{{food.portions.nutrients.important.saturated.unit}}</span>
+											</li>
+										</ul>
+									</td>
+									<td>
+										<strong>Total Carbs</strong>
+										<em ng-show="food.portions.nutrients.important.total_carbs == null">None</em>
+										<span ng-show="food.portions.nutrients.important.total_carbs != null"> {{food.portions.nutrients.important.total_carbs.value}}{{food.portions.nutrients.important.total_carbs.unit}}</span>
+										<ul>
+											<li>
+												Dietary Fibre
+												<em ng-show="food.portions.nutrients.important.dietary_fibre == null">None</em>
+												<span ng-show="food.portions.nutrients.important.dietary_fibre != null"> {{food.portions.nutrients.important.dietary_fibre.value}}{{food.portions.nutrients.important.dietary_fibre.unit}}</span>
+											</li>
+											<li>
+												Sugar
+												<em ng-show="food.portions.nutrients.important.sugar == null">None</em>
+												<span ng-show="food.portions.nutrients.important.sugar != null"> {{food.portions.nutrients.important.sugar.value}}{{food.portions.nutrients.important.sugar.unit}}</span>
+											</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<strong>Potassium</strong>
+										<em ng-show="food.portions.nutrients.important.potassium == null">None</em>
+										<span ng-show="food.portions.nutrients.important.potassium != null"> {{food.portions.nutrients.important.potassium.value}}{{food.portions.nutrients.important.potassium.unit}}</span>
+									</td>
+									<td></td>
+								</tr>
+							</table> <!-- /.Nutritional Facts Table -->
+						</div>
+					</div>
+				</li>
+			</ul> <!-- /.Listing individual food item list -->
+		</accordion-group> 
+	</accordion> <!-- /.Listing by date -->
+	<li class="list-group-item" ng-if="savedFoodItems.length == 0">
+		<em>You have not saved any food items yet...</em>
+	</li>
+</div>

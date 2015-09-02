@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="foodLoggingApp">
+
+<head>
+  <!-- To ensure proper rendering and touch zooming -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- AngularJS Library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-route.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
+  
+  <!-- Main app, controllers and services -->
+  <script src="js/app/app.js"></script>
+  <script src="js/app/controllers/foodMainNavController.js"></script>
+  <script src="js/app/controllers/foodReviewController.js"></script>
+  <script src="js/app/controllers/foodSearchController.js"></script>
+  <script src="js/app/services/foodStorageService.js"></script>
+
+  <!-- Dependencies: -->
+  <!-- Bootstrap -->
+  <script src="js/lib/ui-bootstrap-tpls-0.13.3.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <!-- Angular Chart -->
+  <script src="js/lib/Chart.min.js"></script>
+  <script src="//cdn.jsdelivr.net/angular.chartjs/latest/angular-chart.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/angular.chartjs/latest/angular-chart.css">
+
+  <style>
+    body {
+      padding-top: 70px;
+    }
+  </style>
+</head>
+
+<body ng-controller="NavCtrl">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" ng-click="toggleNavCollapse(isCollapsed)" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand" href="#">My Meal Journal</span>
+      </div>
+
+      <!-- Collect the nav links for toggling -->
+      <div class="collapse navbar-collapse" collapse="isCollapsed">
+        <ul class="nav navbar-nav">
+          <li ng-class="{active: isActive('/searchfood')}"><a href="#/searchfood" ng-click="isCollapsed=true">Log Meal<span class="sr-only">(current)</span></a></li>
+          <li ng-class="{active: isActive('/viewsavedfood')}"><a href="#/viewsavedfood" ng-click="isCollapsed=true">Review Past Diets</a></li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+      <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" dismiss-on-timeout="2000">{{alert.msg}}</alert>
+    </div>
+    <!-- /.container-fluid -->
+  </nav>
+
+  <div ng-view></div>
+
+</body>
+
+</html>
